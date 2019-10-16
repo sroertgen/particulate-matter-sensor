@@ -8,6 +8,14 @@
 #include <DHT_U.h>
 #include <InfluxDb.h>
 
+static const uint32_t GPSBaud = 9600;
+
+// The TinyGPS++ object
+TinyGPSPlus gps;
+
+// The serial connection to the GPS device
+SoftwareSerial ss(RXPin, TXPin);
+
 // Setup DHT22
 #define DHTPIN D7
 #define DHTTYPE DHT22
@@ -15,6 +23,8 @@
 DHT_Unified dht(DHTPIN, DHTTYPE);
 
 //Setup SDS011
+#define RXPIN D1
+#define TXPIN D2
 SDS011 my_sds;
 
 // Setup InfluxDB
@@ -27,8 +37,10 @@ Influxdb influx(INFLUXDB_HOST);
 // Define vars
 float p10, p25;
 float temp, humid;
+
 int error;
 uint32_t delayMS;
+
 
 void setup()
 {
@@ -48,7 +60,7 @@ void setup()
   Serial.println(sensor.name);
 
   // delayMS = sensor.min_delay / 1000;
-  delayMS = 100;
+  delayMS = 1000;
 
   // Setup WiFI
   WiFiManager wifiManager;
@@ -56,25 +68,25 @@ void setup()
   Serial.println("Connected!");
   
   // Setup SDS011
-  my_sds.begin(D1, D2);
+  my_sds.begin(RXPIN, TXPIN);
 
   // Set Influx Database
   influx.setDb(INFLUXDB_DATABASE);
 
 }
 
-void loop()
+void loop() 
 {
-  delay(delayMS);
-
   // Get temperature event and print value
   sensors_event_t event;
   dht.temperature().getEvent(&event);
   temp = event.temperature;
-  if (isnan(event.temperature)) {
+  if (isnan(event.temperature))
+  {
     Serial.println(F("Error reading temperature!"));
   }
-  else {
+  else
+  {
     Serial.print(F("Temperature: "));
     Serial.print(temp);
     Serial.println(F("°C"));
@@ -83,10 +95,12 @@ void loop()
   // Get humidity
   dht.humidity().getEvent(&event);
   humid = event.relative_humidity;
-  if (isnan(event.relative_humidity)) {
+  if (isnan(event.relative_humidity))
+  {
     Serial.println(F("Error reading humidity!"));
   }
-  else {
+  else
+  {
     Serial.print(F("Humidity: "));
     Serial.print(humid);
     Serial.println(F("%"));
@@ -103,22 +117,23 @@ void loop()
   // Send to InfluxDB
   Serial.println("Collecting measurements...");
 
-  InfluxData measurement_temp ("temperature");
+  InfluxData measurement_temp("temperature");
   measurement_temp.addValue("value", temp);
   influx.prepare(measurement_temp);
 
-  InfluxData measurement_humid ("humidity");
+  InfluxData measurement_humid("humidity");
   measurement_humid.addValue("value", humid);
   influx.prepare(measurement_humid);
 
-  InfluxData measurement_p25 ("p25");
+  InfluxData measurement_p25("p25");
   measurement_p25.addValue("value", p25);
   influx.prepare(measurement_p25);
 
-  InfluxData measurement_p10 ("p10");
+  InfluxData measurement_p10("p10");
   measurement_p10.addValue("value", p10);
   influx.prepare(measurement_p10);
 
   boolean success = influx.write();
 
+  delay(delayMS);
 }
