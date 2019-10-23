@@ -10,9 +10,6 @@
 
 static const uint32_t GPSBaud = 9600;
 
-// The serial connection to the GPS device
-SoftwareSerial ss(RXPin, TXPin);
-
 // Setup DHT22
 #define DHTPIN D7
 #define DHTTYPE DHT22
