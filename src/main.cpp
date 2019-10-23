@@ -10,9 +10,6 @@
 
 static const uint32_t GPSBaud = 9600;
 
-// The TinyGPS++ object
-TinyGPSPlus gps;
-
 // The serial connection to the GPS device
 SoftwareSerial ss(RXPin, TXPin);
 
