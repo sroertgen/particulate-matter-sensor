@@ -1,9 +1,11 @@
-- [] TODO Übersetzen
-- [] TODO Bebildern
-- [] Setup of virtualenv einfügen
-- [] Hintergrund-Informationen über Feinstaub und möglichen Ablauf eines Workshops/Projektes anfügen
+# TODOs
 
-# DIY-Feinstaubsensor mit Live-Monitorung
+- [ ] TODO Übersetzen
+- [ ] TODO Bebildern
+- [ ] Setup of virtualenv einfügen
+- [ ] Hintergrund-Informationen über Feinstaub und möglichen Ablauf eines Workshops/Projektes anfügen
+
+## DIY-Feinstaubsensor mit Live-Monitorung
 
 This project is adapted from the [luftdaten.info project](https://luftdaten.info). It uses the same hardware, just the code is rewritten, so that the sensor measures data every second instead of every three minutes and we send the data to our own database.
 
@@ -68,4 +70,3 @@ Now click the Upload-Button to upload the code on your NodeMCU.
 
 - [Warum ist Feinstaub so gefähtlich? - Ein Bericht von Quarks.de](https://www.quarks.de/gesundheit/warum-feinstaub-so-gefaehrlich-ist/)
 - [Was taugt der Feinstaubsensor SDS011](https://www.thethingsnetwork.org/community/berlin/post/was-taugen-feinstaubsensoren-aus-dem-land-des-lachelns-im-ttn-iot-lorawan-netz)
-
