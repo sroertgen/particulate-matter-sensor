@@ -1,7 +1,9 @@
 # TODOs
 
-- [ ] TODO Übersetzen
-- [ ] TODO Bebildern
+Noch zu erledigen:
+
+- [ ] Übersetzen
+- [ ] Bebildern
 - [ ] Setup of virtualenv einfügen
 - [ ] Hintergrund-Informationen über Feinstaub und möglichen Ablauf eines Workshops/Projektes anfügen
 
