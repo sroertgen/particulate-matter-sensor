@@ -72,3 +72,7 @@ Now click the Upload-Button to upload the code on your NodeMCU.
 
 - [Warum ist Feinstaub so gefähtlich? - Ein Bericht von Quarks.de](https://www.quarks.de/gesundheit/warum-feinstaub-so-gefaehrlich-ist/)
 - [Was taugt der Feinstaubsensor SDS011](https://www.thethingsnetwork.org/community/berlin/post/was-taugen-feinstaubsensoren-aus-dem-land-des-lachelns-im-ttn-iot-lorawan-netz)
+
+## LICENSE
+
+Feel free to use all source code created by me via https://creativecommons.org/publicdomain/zero/1.0/, does not apply to external source code provided by other projects.
