@@ -1,0 +1,7 @@
+ansible_host: 141.5.108.58
+ansible_user: cloud
+ansible_connection: ssh
+# ansible_password: 1234
+
+influxdb_ip_address: '{{ ansible_host }}'
+influxdb_database_name: espdb

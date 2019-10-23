@@ -1,0 +1,55 @@
+---
+- name: add influx db repo key
+  apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+
+
+- name: add repo for influx db
+  apt_repository:
+    repo: deb https://repos.influxdata.com/debian stretch stable
+    state: present
+
+- name: install necessary packages
+  apt:
+    name: '{{ packages }}'
+    state: present
+  vars:
+    packages:
+      - python
+      - python3
+      - python-pip
+      - python3-pip
+
+- name: pip install necessary packages
+  pip:
+    name: '{{ packages }}'
+    state: present
+  vars:
+    packages:      
+      - requests
+      - influxdb
+
+- name: install influxdb
+  apt:
+    name: influxdb
+    state: present
+    update_cache: yes
+
+- name: Modify InfluxDB hostname
+  replace:
+    dest=/etc/influxdb/influxdb.conf
+    regexp='hostname = "localhost"'
+    replace='hostname = "{{ ansible_hostname }}"'
+    backup=yes
+
+- name: Start the InfluxDB service
+  service: 
+    name: influxdb 
+    state: restarted
+
+- name: create database
+  influxdb_database:
+    hostname: '{{ influxdb_ip_address }}'
+    database_name: '{{ influxdb_database_name }}'
+    retries: 0
+    state: present
